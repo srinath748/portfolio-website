@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Theme Toggle Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+    body {
+      background: white;
+      color: black;
+    }
+    .dark-mode body {
+      background: #0d0d0d;
+      color: #e0e0ff;
+    }
+    button {
+      margin: 20px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+  </style>
+
+  <!-- Load saved theme BEFORE page renders -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem("theme") || "light"; // default light
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark-mode");
+      }
+    })();
+  </script>
+</head>
+<body>
+  <h1>Theme Toggle Demo</h1>
+  <p>This is a test paragraph. Change mode below:</p>
+  <button id="modeToggle">🌙 Night Mode</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggleBtn = document.getElementById("modeToggle");
+
+      // Set initial button text
+      if (localStorage.getItem("theme") === "dark") {
+        toggleBtn.textContent = "☀️ Light Mode";
+      } else {
+        toggleBtn.textContent = "🌙 Night Mode";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark-mode");
+
+        if (document.documentElement.classList.contains("dark-mode")) {
+          localStorage.setItem("theme", "dark");
+          toggleBtn.textContent = "☀️ Light Mode";
+        } else {
+          localStorage.setItem("theme", "light");
+          toggleBtn.textContent = "🌙 Night Mode";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
